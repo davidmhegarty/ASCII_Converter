@@ -1,6 +1,7 @@
 
 
 #include <iostream>
+#include <vector>
 
 /**
     Simple program to convert a 5 letter input to ASCII numbers, then convert a new 5 number input back to letters.
@@ -26,7 +27,7 @@ void convert_letters_to_ASCII() {
 unsigned int get_ASCII_number() {
     unsigned int integer_input;
     std::cin >> integer_input;
-    while (std::cin.fail() && integer_input < 256) {
+    while (std::cin.fail() || integer_input > 128) {
         std::cout << "Input not recognized, please try again: ";
         std::cin.clear();
         std::cin.ignore(256, '\n');
@@ -38,22 +39,28 @@ unsigned int get_ASCII_number() {
 /*
   Collect numbers from user and oupput the ASCII characters for each.
 */
-void convert_ASCII_to_letters() {
+void convert_ASCII_to_letters(int num) {
     unsigned int int1, int2, int3, int4, int5;
+    std::vector<int> inputInt;
 
-    std::cout << "Enter 5 ASCII numbers " << std::endl;
-    std::cout << "First number: " << std::endl;
-    int1 = get_ASCII_number();
-    std::cout << "Second number: " << std::endl;
-    int2 = get_ASCII_number();
-    std::cout << "Third number: " << std::endl;
-    int3 = get_ASCII_number();
-    std::cout << "Fourth number: " << std::endl;
-    int4 = get_ASCII_number();
-    std::cout << "Fifth number: " << std::endl;
-    int5 = get_ASCII_number();
 
-    std::cout << "ASCII message: " << char(int1) << char(int2) << char(int3) << char(int4) << char(int5) << std::endl;
+    std::cout << "Converting " << num << " ASCII numbers to letters." << std::endl;
+
+    for (int i = 0; i < num; i++)
+    {
+        std::cout << "Enter number " << i + 1 << ": ";
+        inputInt.push_back(get_ASCII_number());
+    }
+
+    std::cout << "ASCII message: ";
+    for (int i = 0; i < num; i++)
+    {
+        std::cout << (char) inputInt[i];
+    }
+    std::cout << std::endl;
+
+
+
 }
 
 
@@ -82,7 +89,7 @@ void action_user_menu_option(int menu_option) {
         convert_letters_to_ASCII();
         break;
     case 2:
-        convert_ASCII_to_letters();
+        convert_ASCII_to_letters(5);
         break;
     case 3:
         program_running = false;
