@@ -36,13 +36,55 @@ void convert_ASCII_to_letters() {
 }
 
 
+/*
+  Bug: Entering letters causes an unbreakable loop  
+*/
+int get_menu_input() {
+    int user_input;
+    std::cin >> user_input;
+    return user_input;
+}
+
+void action_user_menu_option(int menu_option) {
+    switch (menu_option) {
+    case 1:
+        convert_letters_to_ASCII();
+        break;
+    case 2:
+        convert_ASCII_to_letters();
+        break;
+    case 3:
+        exit(0);
+        break;
+    default:
+        std::cout << menu_option << " is not a recognized menu option, please try again." << std::endl;
+        std::cout << "Enter a menu option (1-3): ";
+        action_user_menu_option((int)get_menu_input());
+    }
+}
+
+void main_menu() {
+    int menu_option;
+    std::cout << "ASCII Converter Menu" << std::endl;
+    std::cout << "1: Text to ASCII Converter" << std::endl;
+    std::cout << "2: ASCII to Text Converter" << std::endl;
+    std::cout << "3: Exit Program" << std::endl;
+    std::cout << "Enter a menu option (1-3): ";
+    menu_option = get_menu_input();
+
+    action_user_menu_option((int)menu_option);
+}
+
+
+
+
 
 int main()
 {
     
-    convert_letters_to_ASCII();
-       
-    convert_ASCII_to_letters();
+    
+    main_menu();
+    
 
     std::system("pause>0");
 }
